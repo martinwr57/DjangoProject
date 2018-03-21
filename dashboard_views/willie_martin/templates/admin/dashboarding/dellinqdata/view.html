@@ -1,0 +1,97 @@
+{% extends "admin/base_site.html" %}
+
+{% block title %}List of Drive Inquiries by Venders{% endblock %}
+
+{% block content %}
+<div id="content-main">
+
+
+  <h1>List of Inquiries by Vendor:</h1>
+  {% regroup dellinqdata_list|dictsort:"headvendor" by headvendor as vendorlist %}
+
+    {% for device in vendorlist %}
+    <h3>{{ device.grouper }}</h3>
+    <ul>
+      {% for v in device.list|dictsort:"productserialnumber" %}
+        <li>{{ v }}</li>
+        <h3>Vender ID</h3>
+            <p>{{ v.venderid }}</p>
+        <h3>Product ID<h3>
+            <p>{{ v.productid }}</p>
+        <h3>Firmware Revision Level</h3>
+            <p>{{ v.firmwarerevisionlevel }}</p>
+        <h3>Product Serial Number</h3>
+            <p>{{ v.productserialnumber }}</p>
+        <h3>Target Device Name</h3>
+            <p>{{ v.targetdevicename }}</p>
+        <h3>Target Port Identifier 1</h3>
+            <p>{{ v.targetportidentifier1 }}</p>
+        <h3>Target Port Identifier 2</h3>
+            <p>{{ v.targetportidentifier2 }}</p>
+        <h3>Form Factor Width</h3>
+            <p>{{ v.formfactorwidth }}</p>
+        <h3>Form Factor Height</h3>
+            <p>{{ v.formfactorheight }}</p>
+        <h3>Device ID</h3>
+            <p>{{ v.deviceid }}</p>
+        <h3>Servo Code Level</h3>
+            <p>{{ v.servocodelevel }}</p>
+        <h3>PCBA Serial Number</h3>
+            <p>{{ v.pcbaserialnumber }}</p>
+        <h3>PCBA Part Number</h3>
+            <p>{{ v.pcbapartnumber }}</p>
+        <h3>Disk Media Vendor</h3>
+            <p>{{ v.diskmediavendor }}</p>
+        <h3>Motor Serial Number</h3>
+            <p>{{ v.motorserialnumber }}</p>
+        <h3>Flex Circuit Assembly Serial Number</h3>
+            <p>{{ v.flexcircuitassemblyserialnumber }}</p>
+        <h3>Head Vendor</h3>
+            <p>{{ v.headvendor }}</p>
+        <h3>HDC Revision</h3>
+            <p>{{ v.hdcrevision }}</p>
+        <h3>Actuator Serial Number</h3>
+            <p>{{ v.actuatorserialnumber }}</p>
+        <h3>Head Disk Assembly</h3>
+            <p>{{ v.headdiskassembly }}</p>
+        <h3>Year of Manufacture</h3>
+            <p>{{ v.yearofmanufacture }}</p>
+        <h3>Week of Manufacture</h3>
+            <p>{{ v.weekofmanufacture }}</p>
+        <h3>Day of Manufacture<h3>
+            <p>{{ v.dayofmanufacture }}</p>
+        <h3>Location of Manufacture</h3>
+            <p>{{ v.locationofmanufacture }}</p>
+        <h3>DellPPID<h3>
+            <p>{{ v.dellppid }}</p>
+        <h3>Medium Rotation Rate</h3>
+            <p>{{ v.mediumrotationrate }}</p>
+        <h3>Diff</h3>
+            <p>{{ v.diff }}</p>
+        <h3>Sed</h3>
+            <p>{{ v.sed }}</p>
+            
+     
+     
+    
+    
+     
+     
+     
+     
+     
+    
+     
+     
+     
+    
+    
+    
+    
+   
+
+      {% endfor %}
+    </ul>
+  {% endfor %}
+</div>
+{% endblock %}

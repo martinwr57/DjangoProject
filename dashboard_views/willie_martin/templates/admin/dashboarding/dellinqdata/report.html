@@ -1,0 +1,135 @@
+{% extends "admin/base_site.html" %}
+{% load adminmedia admin_list i18n %}
+
+{% block extrahead %}
+<link rel="stylesheet" type="text/css" href="/media/css/report.css" />
+<script type="text/javascript" src="/media/js/jquery.js" ></script>
+<script type="text/javascript" src="/media/js/jquery.ui.js" ></script>
+<script type="text/javascript" src="/media/js/jquery.collapser.js" ></script>
+
+ <script type="text/javascript">
+$(document).ready(function(){	
+	
+	/** Demo 6 **********************************/
+	
+	$('.panel').hide();
+	
+	$('.demo6').collapser({
+		target: 'next',
+		effect: 'slide',
+		changeText: 0,
+		expandClass: 'expIco',
+		collapseClass: 'collIco'
+	}, function(){
+		$('.panel').slideUp();
+	});
+	
+});
+</script>
+
+
+
+{% endblock %}
+
+{% block title %}List of Drive Inquiries by Venders{% endblock %}
+{% block breadcrumbs %}
+    <div class="breadcrumbs">
+      <a href="../../">
+        {% trans "Home" %}
+      </a>
+       &rsaquo; 
+       <a href="../">dellinqdata
+         {{ app_label|capfirst }}
+      </a>
+      &rsaquo; 
+      {{ cl.opts.verbose_name|capfirst }}
+    </div>
+  {% endblock %}
+
+{% block content %}
+<div id="content-main">
+
+
+  <h1>List of Inquiries by Vendor:</h1>
+  {% regroup dellinqdata_list|dictsort:"headvendor" by headvendor as vendorlist %}
+
+    {% for device in vendorlist %}
+    <h3>{{ device.grouper }}</h3>
+    
+      {% for v in device.list|dictsort:"productserialnumber" %}
+        <h4 class="demo6">{{ v }}</h4>        
+        
+        <div class="panel">
+            
+        <table>
+        <tr>
+	 <td>
+	<fieldset>
+        <label>Vender ID</label> {{ v.venderid }}<br/><br/>
+        <label>Product ID</label> {{ v.productid }}<br/><br/>
+        <label>Firmware Revision Level</label> {{ v.firmwarerevisionlevel }}<br/><br/>	
+        <label>Product Serial Number</label> {{ v.productserialnumber }}<br/><br/>
+        <label>Target Device Name</label> {{ v.targetdevicename }}<br/><br/>
+        <label>Target Port Identifier 1</label> {{ v.targetportidentifier1 }}<br/><br/>
+        <label>Target Port Identifier 2</label> {{ v.targetportidentifier2 }}<br/><br/>
+	</fieldset>
+	 </td>
+	</tr>
+	<tr><td><hr></td></tr>
+	<tr>
+	 <td>
+	<fieldset>
+        <label>Form Factor Width</label>  {{ v.formfactorwidth }}<br/><br/>
+        <label>Form Factor Height</label>  {{ v.formfactorheight }}<br/><br/>	    
+	</fieldset>
+	 </td>
+	</tr>
+	<tr><td><hr></td></tr>
+	<tr>
+	 <td>
+	<fieldset>
+        <label>Device ID</label> {{ v.deviceid }}<br/><br/>
+        <label>Servo Code Level</label> {{ v.servocodelevel }}<br/><br/>
+        <label>PCBA Serial Number</label> {{ v.pcbaserialnumber }}<br/><br/>
+        <label>PCBA Part Number</label> {{ v.pcbapartnumber }}<br/><br/>
+        <label>Disk Media Vendor</label> {{ v.diskmediavendor }}<br/><br/>
+        <label>Motor Serial Number</label> {{ v.motorserialnumber }}<br/><br/>
+        <label>Flex Circuit Assembly Serial Number</label> {{ v.flexcircuitassemblyserialnumber }}<br/><br/>
+        <label>Head Vendor</label> {{ v.headvendor }}<br/><br/>
+        <label>HDC Revision</label> {{ v.hdcrevision }}<br/><br/>
+        <label>Actuator Serial Number</label> {{ v.actuatorserialnumber }}<br/><br/>
+        <label>Head Disk Assembly</label>{{ v.headdiskassembly }}<br/><br/>	 	    
+	</fieldset>
+	 </td>
+	</tr>
+	<tr><td><hr></td></tr>
+	<tr>
+	 <td>
+	<fieldset>
+	<label>Year of Manufacture</label> {{ v.yearofmanufacture }}<br/><br/>
+	<label>Week of Manufacture</label> {{ v.weekofmanufacture }}<br/><br/>
+	<label>Day of Manufacture</label> {{ v.dayofmanufacture }}<br/><br/>		 	    
+	</fieldset>
+	 </td>
+	</tr>
+	<tr><td><hr></td></tr>
+	<tr>
+	 <td>
+	<fieldset>            
+        <label>Location of Manufacture</label> {{ v.locationofmanufacture }}<br/><br/> 
+        <label>DellPPID<label> {{ v.dellppid }}<br/><br/>
+        <label>Medium Rotation Rate</label> {{ v.mediumrotationrate }}<br/><br/>
+        <label>Diff</label> {{ v.diff }}<br/><br/>
+        <label>Sed</label> {{ v.sed }}<br/><br/>       
+	</fieldset>
+	 </td>
+	</tr>
+        </table>
+       
+        </div>  
+
+      {% endfor %}
+    
+  {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "admin/base_site.html" %}
+
+{% block title %}List of books by vendor{% endblock %}
+
+{% block content %}
+<div id="content-main">
+  <h1>List of product inquiries by vendor:</h1>
+  {% regroup dellinqdata_list|dictsort:"dellinqdata.vendorid" by vendor as products_by_vendor %}
+  {% for product in products_by_vendor %}
+    <h3>{{ product.venderid }}</h3>
+    <ul>
+      {% for device in product.list|dictsort:"productid" %}
+        <li>{{ device }}</li>
+      {% endfor %}
+    </ul>
+  {% endfor %}
+</div>
+{% endblock %}

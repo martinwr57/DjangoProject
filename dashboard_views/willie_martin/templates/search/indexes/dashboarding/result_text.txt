@@ -1,0 +1,4 @@
+{{ object.serialnumber }}
+{{ object.timestamp }}
+{{ object.modelnumber }}
+{{ object.testname }}

@@ -1,0 +1,40 @@
+
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% load adminmedia %}{% admin_media_prefix %}css/dashboard.css" />{% endblock %}
+{% block coltype %}colMS{% endblock %}
+
+{% block bodyclass %}dashboard{% endblock %}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block content %}
+
+<div id="content-main">
+    <div class="module">
+<table>
+{% if latest_systems_list %}
+    
+    {% for device in latest_systems_list %}
+        {% if device.configuration %}
+            <tr ><th scope="row">{{ device.systemname }}</th></tr>
+            <tr><td  scope="row">{{ device.configuration }}</td></tr>            
+       
+        {% endif %}
+    {% endfor %}
+    
+{% else %}
+    <tr><td>No results are available.</td></tr>
+{% endif %}
+
+
+</table>
+   
+
+{% endblock %}
+     </div>
+
+</div>
+

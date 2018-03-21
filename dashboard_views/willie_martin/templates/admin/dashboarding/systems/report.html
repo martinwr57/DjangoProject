@@ -1,0 +1,78 @@
+{% extends "admin/base_site.html" %}
+{% load adminmedia admin_list i18n %}
+
+{% block extrahead %}
+<link rel="stylesheet" type="text/css" href="/media/css/report.css" />
+<script type="text/javascript" src="/media/js/jquery.js" ></script>
+<script type="text/javascript" src="/media/js/jquery.ui.js" ></script>
+<script type="text/javascript" src="/media/js/jquery.collapser.js" ></script>
+
+ <script type="text/javascript">
+$(document).ready(function(){	
+	
+	/** Demo 6 **********************************/
+	
+	$('.panel').hide();
+	
+	$('.demo6').collapser({
+		target: 'next',
+		effect: 'slide',
+		changeText: 0,
+		expandClass: 'expIco',
+		collapseClass: 'collIco'
+	}, function(){
+		$('.panel').slideUp();
+	});
+	
+});
+</script>
+
+
+
+{% endblock %}
+
+{% block title %}List of Systems by Model Name{% endblock %}
+{% block breadcrumbs %}
+    <div class="breadcrumbs">
+      <a href="../../">
+        {% trans "Home" %}
+      </a>
+       &rsaquo; 
+       <a href="../">systems
+         {{ app_label|capfirst }}
+      </a>
+      &rsaquo; 
+      {{ cl.opts.verbose_name|capfirst }}
+    </div>
+  {% endblock %}
+
+{% block content %}
+<div id="content-main">
+
+
+  <h1>List of Systems by Model Name:</h1>
+  {% regroup systems_list|dictsort:"modelname" by modelname as modelnamelist %}
+
+    {% for system in modelnamelist %}
+    <h3>{{ system.grouper }}</h3>
+    
+      {% for s in system.list|dictsort:"systemname" %}
+        <h4 class="demo6">{{ s }}</h4>        
+        
+        <div class="panel">
+        <h3>System Name</h3>
+            <p>{{ s.systemname }}</p>
+        <h3>DNS</h3>
+            <p>{{ s.networkid }}</p>
+        <h3>System Configuration</h3>
+            <table width="100%">
+            <tr><td width="70%"> <code>{{ s.configuration }}</code> </td></tr>
+            </table>
+       
+        </div>  
+
+      {% endfor %}
+    
+  {% endfor %}
+</div>
+{% endblock %}

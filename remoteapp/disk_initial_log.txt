@@ -1,0 +1,50 @@
+
+Microsoft DiskPart version 6.1.7601
+Copyright (C) 1999-2008 Microsoft Corporation.
+On computer: AUTOMATION4
+
+Disk 0 is now the selected disk.
+
+Disk 1 is now the selected disk.
+
+Disk attributes cleared successfully.
+
+There is no disk selected to convert.
+Select a disk and try again.
+
+Disk 2 is now the selected disk.
+
+Disk attributes cleared successfully.
+
+There is no disk selected to convert.
+Select a disk and try again.
+
+Disk 3 is now the selected disk.
+
+Disk attributes cleared successfully.
+
+There is no disk selected to convert.
+Select a disk and try again.
+
+Disk 4 is now the selected disk.
+
+Disk attributes cleared successfully.
+
+There is no disk selected to convert.
+Select a disk and try again.
+
+Disk 5 is now the selected disk.
+
+Disk attributes cleared successfully.
+
+There is no disk selected to convert.
+Select a disk and try again.
+
+Disk 6 is now the selected disk.
+
+Disk attributes cleared successfully.
+
+There is no disk selected to convert.
+Select a disk and try again.
+
+Leaving DiskPart...

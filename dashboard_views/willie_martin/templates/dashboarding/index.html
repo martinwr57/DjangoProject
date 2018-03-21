@@ -1,0 +1,57 @@
+
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% load adminmedia %}{% admin_media_prefix %}css/dashboard.css" />{% endblock %}
+{% block coltype %}colMS{% endblock %}
+
+{% block bodyclass %}dashboard{% endblock %}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block content %}
+
+<div id="content-main">
+    <div class="module">
+<table>
+{% if latest_device_list %}
+    
+    {% for device in latest_device_list %}
+        {% if device.manufacturer %}
+            <tr ><th scope="row">{{ device.manufacturer }}</th></tr>
+            <tr><td  scope="row"><a href="/admin/dashboarding/device/{{ device.serialnumber }}" >{{ device.serialnumber }} {{ device.memorytype }}  {{ device.firmware }} </a></td></tr>            
+       
+        {% endif %}
+    {% endfor %}
+    
+{% else %}
+    <tr><td>No results are available.</td></tr>
+{% endif %}
+
+
+</table>
+    <table>
+{% if latest_result_list %}
+    
+    {% for result in latest_result_list %}
+        {% if result.rawdata %}
+            <tr ><th scope="row">{{ result.serialnumber }}</th></tr>
+            <tr><td  scope="row"><a href="file:{{ result.rawdata }}" >{{ result.testname }} {{ result.timestamp }} </a></td></tr>            
+       
+        {% endif %}
+    {% endfor %}
+    
+{% else %}
+    <tr><td>No results are available.</td></tr>
+{% endif %}
+
+
+</table>
+    
+
+{% endblock %}
+     </div>
+
+</div>
+

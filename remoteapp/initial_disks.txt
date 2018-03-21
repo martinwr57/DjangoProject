@@ -1,0 +1,32 @@
+
+select disk 1
+clean  
+online disk
+convert mbr 
+ 
+select disk 2
+clean 
+online disk
+convert mbr
+
+select disk 3
+clean 
+online disk
+convert mbr
+
+select disk 4
+clean 
+online disk
+convert mbr
+
+select disk 5
+clean 
+online disk
+convert mbr
+
+select disk 6
+clean 
+online disk
+convert mbr
+
+exit

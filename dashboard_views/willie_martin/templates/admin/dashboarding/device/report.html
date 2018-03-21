@@ -1,0 +1,186 @@
+{% extends "admin/base_site.html" %}
+{% load adminmedia admin_list i18n %}
+
+{% block extrahead %}
+<link rel="stylesheet" type="text/css" href="/media/css/report.css" />
+<script type="text/javascript" src="/media/js/jquery.js" ></script>
+<script type="text/javascript" src="/media/js/jquery.ui.js" ></script>
+<script type="text/javascript" src="/media/js/jquery.collapser.js" ></script>
+
+ <script type="text/javascript">
+$(document).ready(function(){	
+	
+	/** Demo 6 **********************************/
+	
+	$('.panel').hide();
+	
+	$('.demo6').collapser({
+		target: 'next',
+		effect: 'slide',
+		changeText: 0,
+		expandClass: 'expIco',
+		collapseClass: 'collIco'
+	}, function(){
+		$('.panel').slideUp();
+	});
+	
+});
+</script>
+
+
+
+{% endblock %}
+
+
+{% block title %}Device Test Report{% endblock %}
+{% block breadcrumbs %}
+    <div class="breadcrumbs">
+      <a href="../../">
+        {% trans "Devices" %}
+      </a>
+       &rsaquo; 
+       <a href="../">
+         {{ app_label|capfirst }}
+      </a>
+      &rsaquo; 
+      {{ cl.opts.verbose_name|capfirst }}
+    </div>
+  {% endblock %}
+{% block content %}
+<div id="content-main">
+<table>
+{% if device_info %}   
+   
+<tr>
+<th scope="row">{{ device_info.manufacturer }}</th>
+
+{% if dell_inquiry_page %} 
+ <th scope="row">Dell Inquiry Page</th></tr> 
+{% else %}
+    <th scope="row">No Inquiry page  available.</th></tr>
+{% endif %}
+
+ 
+ <tr>
+	 <td>
+	<fieldset>
+        <label>Serial Number</label> <a href="/admin/dashboarding/device/{{ device_info.serialnumber }}" >{{ device_info.serialnumber }}</a> <br/><br/>
+        <label>Memory Type</label> {{ device_info.memorytype }}<br/><br/>
+        <label>Interface Type</label> {{ device_info.interfacetype }} <br/><br/>	
+        <label>Capacity</label> {{ device_info.capacity }}<br/><br/>
+        <label>Firmware</label> {{ device_info.firmware }}<br/><br/>
+        <label>Model Number</label> {{ device_info.modelnumber }}<br/><br/>
+	<label>Windows OS Drive Location</label> {{ device_info.windowslocation }}<br/><br/>
+
+	</fieldset>
+	
+<h3>List Device Test Results:</h3>
+{% if latest_result_list %} 
+
+    {% for s in latest_result_list %}
+   
+        <h4 class="demo6">{{ s.testname }} {{ s.timestamp }}</h4>        
+        <div class="panel">
+	{% if s.rawdata %}	
+	<a href="file:////{{ s.rawdata }}">Performance Results </a>
+	{% endif %}
+	{% if s.reports %}	
+	<a href="file:////{{ s.reports }}">Metrics Analysis Results</a>
+	{% endif %}
+		
+        </div>  
+
+   {% endfor %}
+ {% endif %}
+   
+
+
+</td>
+
+
+<td>
+<table>
+{% if dell_inquiry_page %} 
+<h4 class="demo6">{{ dell_inquiry_page }}</h4>
+
+        <tr>
+	 <td>
+	<fieldset>
+        <label>Vender ID</label> {{ dell_inquiry_page.venderid }}<br/><br/>
+        <label>Product ID</label> {{ dell_inquiry_page.productid }}<br/><br/>
+        <label>Firmware Revision Level</label> {{ dell_inquiry_page.firmwarerevisionlevel }}<br/><br/>	
+        <label>Product Serial Number</label> {{ dell_inquiry_page.productserialnumber }}<br/><br/>
+        <!--<label>Target Device Name</label> {{ dell_inquiry_page.targetdevicename }}<br/><br/>
+        <label>Target Port Identifier 1</label> {{ dell_inquiry_page.targetportidentifier1 }}<br/><br/>
+        <label>Target Port Identifier 2</label> {{ dell_inquiry_page.targetportidentifier2 }}<br/><br/>-->
+	</fieldset>
+	 </td>
+	</tr>
+	<tr><td><hr></td></tr>
+	<tr>
+	 <td>
+	<fieldset>
+        <label>Form Factor Width (in)</label>  {{ dell_inquiry_page.formfactorwidth }}<br/><br/>
+        <label>Form Factor Height (mm)</label>  {{ dell_inquiry_page.formfactorheight }}<br/><br/>	    
+	</fieldset>
+	 </td>
+	</tr>
+	<tr><td><hr></td></tr>
+	<tr>
+	 <td>
+	<fieldset>
+        <label>Device ID</label> {{ dell_inquiry_page.deviceid }}<br/><br/>
+        <label>Servo Code Level</label> {{ dell_inquiry_page.servocodelevel }}<br/><br/>
+        <label>PCBA Serial Number</label> {{ dell_inquiry_page.pcbaserialnumber }}<br/><br/>
+        <label>PCBA Part Number</label> {{ dell_inquiry_page.pcbapartnumber }}<br/><br/>
+        <label>Disk Media Vendor</label> {{ dell_inquiry_page.diskmediavendor }}<br/><br/>
+        <label>Motor Serial Number</label> {{ dell_inquiry_page.motorserialnumber }}<br/><br/>
+        <label>Flex Circuit Assembly Serial Number</label> {{ dell_inquiry_page.flexcircuitassemblyserialnumber }}<br/><br/>
+        <label>Head Vendor</label> {{ dell_inquiry_page.headvendor }}<br/><br/>
+        <label>HDC Revision</label> {{ dell_inquiry_page.hdcrevision }}<br/><br/>
+        <label>Actuator Serial Number</label> {{ dell_inquiry_page.actuatorserialnumber }}<br/><br/>
+        <label>Head Disk Assembly</label> {{ dell_inquiry_page.headdiskassembly }}<br/><br/>	 	    
+	</fieldset>
+	 </td>
+	</tr>
+	<tr><td><hr></td></tr>
+	<tr>
+	 <td>
+	<fieldset>
+	<label>Year of Manufacture</label> {{ dell_inquiry_page.yearofmanufacture }}<br/><br/>
+	<label>Week of Manufacture</label> {{ dell_inquiry_page.weekofmanufacture }}<br/><br/>
+	<label>Day of Manufacture</label> {{ dell_inquiry_page.dayofmanufacture }}<br/><br/>		 	    
+	</fieldset>
+	 </td>
+	</tr>
+	<tr><td><hr></td></tr>
+	<tr>
+	 <td>
+	<fieldset>            
+        <label>Location of Manufacture</label> {{ dell_inquiry_page.locationofmanufacture }}<br/><br/> 
+        <label>DellPPID<label> {{ dell_inquiry_page.dellppid }}<br/><br/>
+        <label>Medium Rotation Rate (rpm)</label> {{ dell_inquiry_page.mediumrotationrate }}<br/><br/>
+        <label>Diff</label> {{ dell_inquiry_page.diff }}<br/><br/>
+        <label>Sed</label> {{ dell_inquiry_page.sed }}<br/><br/>       
+	</fieldset>
+	 </td>
+	</tr>
+{% endif %}
+
+
+</table>
+</td>
+</tr>
+
+    
+{% else %}
+    <tr><td>No results are available.</td></tr>
+{% endif %}
+
+
+  
+  
+</table>
+
+</div>
+{% endblock %}
